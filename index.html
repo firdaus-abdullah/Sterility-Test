@@ -69,8 +69,6 @@ html,body{
   70%{transform:scale(1.25);opacity:0}
   100%{transform:scale(1.25);opacity:0}
 }
-@keyframes spinSlow{to{transform:rotate(360deg)}}
-@keyframes dash{to{stroke-dashoffset:0}}
 
 .slide.active .anim{animation:riseIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0s)}
 .slide.active .anim-pop{animation:popIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0s)}
@@ -282,17 +280,27 @@ svg.ic{
 .mf-step.active .sn{background:var(--red);color:#fff}
 .mf-step.done .sn{background:#000;color:#fff}
 .mf-step .si{
-  width:20px;height:20px;flex:none;display:flex;align-items:center;justify-content:center;
+  width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;
   color:#9aa0a8;transition:.22s;
 }
 .mf-step.active .si{color:var(--red)}
-.mf-step .si svg{width:18px;height:18px}
+.mf-step .si svg{width:20px;height:20px}
 
 .mf-right{
   background:var(--soft);border-radius:14px;padding:22px;display:flex;flex-direction:column;
-  align-items:center;text-align:center;position:relative;overflow:hidden;
+  align-items:center;text-align:center;position:relative;overflow:hidden;justify-content:center;
 }
-.disc-wrap{position:relative;width:104px;height:104px;margin-bottom:12px}
+
+/* Central Visual Area */
+.mf-visual {
+  width: 140px; height: 140px; margin-bottom: 15px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--red); position: relative; flex-shrink: 0;
+}
+.mf-visual svg { width: 100%; height: 100%; stroke-width: 1.5; }
+
+/* Disc Animation for Steps 1-6 */
+.disc-wrap{position:relative;width:104px;height:104px}
 .disc-wrap::before{
   content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(227,6,19,.35);
   animation:pulseRing 2.6s ease-out infinite;
@@ -312,16 +320,28 @@ svg.ic{
   transition:opacity .3s;pointer-events:none;
 }
 .disc-wrap.split .hub{opacity:0}
+
+/* Icon Animations */
+@keyframes iconBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+@keyframes iconPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.8; } }
+@keyframes iconShake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+@keyframes iconSlice { 0%, 100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(15px) rotate(20deg); } }
+
+.anim-bounce { animation: iconBounce 1.2s ease-in-out infinite; }
+.anim-pulse { animation: iconPulse 1.5s ease-in-out infinite; }
+.anim-shake { animation: iconShake 0.8s ease-in-out infinite; }
+.anim-slice { animation: iconSlice 0.9s ease-in-out infinite; }
+
 .mf-num{font-size:42px;font-weight:700;color:#000;line-height:1}
 .mf-num small{font-size:15px;color:#a8adb5;font-weight:700}
-.mf-title{font-size:17.5px;font-weight:700;margin-top:8px;color:#000;transition:opacity .28s ease,transform .28s ease}
-.mf-desc{font-size:15px;color:#000;line-height:1.5;margin-top:8px;min-height:78px;transition:opacity .28s ease,transform .28s ease}
+.mf-title{font-size:18px;font-weight:700;margin-top:8px;color:#000;transition:opacity .28s ease,transform .28s ease}
+.mf-desc{font-size:15px;color:#000;line-height:1.5;margin-top:8px;min-height:76px;transition:opacity .28s ease,transform .28s ease}
 .mf-dots{display:flex;gap:5px;margin-top:auto;padding-top:12px}
 .mf-dots i{width:8px;height:8px;border-radius:50%;background:#d3d7dd;transition:.25s}
 .mf-dots i.on{background:var(--red);transform:scale(1.25)}
 .mf-controls{display:flex;gap:9px;margin-top:12px}
 .mf-btn{
-  font-family:Arial,sans-serif;font-size:13px;font-weight:700;border-radius:20px;padding:8px 17px;
+  font-family:Arial,sans-serif;font-size:13.5px;font-weight:700;border-radius:20px;padding:8px 17px;
   cursor:pointer;border:1px solid var(--line);background:#fff;color:#222;transition:.2s;
 }
 .mf-btn:hover{border-color:var(--red);color:var(--red)}
@@ -532,7 +552,6 @@ svg.ic{
   <section class="slide cover active">
     <div class="hex-bg"></div>
 
-    <!-- floating decorative icons -->
     <div class="cover-float cf1"><svg><use href="#i-flask"/></svg></div>
     <div class="cover-float cf2"><svg><use href="#i-membrane"/></svg></div>
     <div class="cover-float cf3"><svg><use href="#i-petri"/></svg></div>
@@ -810,11 +829,9 @@ svg.ic{
       <div class="mf-steps anim" style="--d:.18s" id="mfSteps"></div>
 
       <div class="mf-right anim" style="--d:.24s">
-        <div class="disc-wrap" id="discWrap">
-          <div class="disc-half left"></div>
-          <div class="disc-half right"></div>
-          <div class="hub">0.45 µm</div>
-        </div>
+        <!-- Dynamic Central Visual -->
+        <div class="mf-visual" id="mfVisual"></div>
+        
         <div class="mf-num"><span id="mfNum">1</span><small> / 10</small></div>
         <div class="mf-title" id="mfTitle"></div>
         <div class="mf-desc" id="mfDesc"></div>
@@ -1175,28 +1192,29 @@ document.querySelectorAll('.tab').forEach(tab => {
    INTERACTIVE MEMBRANE FILTRATION STEPPER
    ============================================================ */
 const mfData = [
-  { icon:"i-membrane", t: "Pre-sterilized membrane", d: "Use a pre-sterilized membrane with 0.45 µm nominal pore size and a diameter of about 50 mm." },
-  { icon:"i-droplet",  t: "Pre-wet the membrane", d: "Pre-wet the membrane with validated sterile rinse solution as stated in the individual POA before inoculating the test sample." },
-  { icon:"i-flask",    t: "Filter the sample", d: "Aseptically inoculate and filter 15 mL (unless a specific volume is stated in the individual POA) of the previously prepared test sample onto the pre-wet membrane." },
-  { icon:"i-rinse",    t: "Rinse 5 × 100 mL", d: "Rinse the inoculated membrane with the test sample for a total of 100 mL, 5 times, using validated sterile rinse solution." },
-  { icon:"i-oil",      t: "Oily / viscous samples", d: "For oils and oily solutions with high viscosity, use a validated rinsing solution containing a suitable emulsifying agent." },
-  { icon:"i-scissors", t: "Cut the membrane", d: "Aseptically cut the sample membrane into two equal halves using sterile scissors (unless a specific procedure is stated in the individual POA)." },
-  { icon:"i-media",    t: "Transfer to media", d: "Transfer one half into 15 mL sterile Fluid Thioglycollate Medium (FTM) and the other half into 15 mL sterile Tryptic Soy Broth (TSB)." },
-  { icon:"i-control",  t: "Negative control", d: "Instead of the test sample, aseptically filter 100 mL of the same batch of validated sterile rinse solution. Cut the membrane and transfer halves into FTM and TSB." },
-  { icon:"i-thermo",   t: "Incubate FTM", d: "Incubate the inoculated FTM at 30–35 °C for 14 days together with its negative control — detection of aerobic and anaerobic bacteria." },
-  { icon:"i-incubator",t: "Incubate TSB", d: "Incubate the inoculated TSB at 20–25 °C for 14 days together with its negative control — detection of aerobic bacteria and fungi." }
+  { icon:"i-membrane", anim:"anim-pulse", t: "Pre-sterilized membrane", d: "Use a pre-sterilized membrane with 0.45 µm nominal pore size and a diameter of about 50 mm." },
+  { icon:"i-droplet",  anim:"anim-bounce", t: "Pre-wet the membrane", d: "Pre-wet the membrane with validated sterile rinse solution as stated in the individual POA before inoculating the test sample." },
+  { icon:"i-flask",    anim:"anim-shake", t: "Filter the sample", d: "Aseptically inoculate and filter 15 mL (unless a specific volume is stated in the individual POA) of the previously prepared test sample onto the pre-wet membrane." },
+  { icon:"i-rinse",    anim:"anim-bounce", t: "Rinse 5 × 100 mL", d: "Rinse the inoculated membrane with the test sample for a total of 100 mL, 5 times, using validated sterile rinse solution." },
+  { icon:"i-oil",      anim:"anim-pulse", t: "Oily / viscous samples", d: "For oils and oily solutions with high viscosity, use a validated rinsing solution containing a suitable emulsifying agent." },
+  { icon:"i-scissors", anim:"anim-slice", t: "Cut the membrane", d: "Aseptically cut the sample membrane into two equal halves using sterile scissors (unless a specific procedure is stated in the individual POA)." },
+  { icon:"i-media",    anim:"anim-bounce", t: "Transfer to media", d: "Transfer one half into 15 mL sterile Fluid Thioglycollate Medium (FTM) and the other half into 15 mL sterile Tryptic Soy Broth (TSB)." },
+  { icon:"i-control",  anim:"anim-pulse", t: "Negative control", d: "Instead of the test sample, aseptically filter 100 mL of the same batch of validated sterile rinse solution. Cut the membrane and transfer halves into FTM and TSB." },
+  { icon:"i-incubator",anim:"anim-pulse", t: "Incubate FTM", d: "Incubate the inoculated FTM at 30–35 °C for 14 days together with its negative control — detection of aerobic and anaerobic bacteria." },
+  { icon:"i-thermo",   anim:"anim-pulse", t: "Incubate TSB", d: "Incubate the inoculated TSB at 20–25 °C for 14 days together with its negative control — detection of aerobic bacteria and fungi." }
 ];
 
 const mfStepsEl = document.getElementById('mfSteps');
+const mfVisualEl = document.getElementById('mfVisual');
 const mfNumEl   = document.getElementById('mfNum');
 const mfTitleEl = document.getElementById('mfTitle');
 const mfDescEl  = document.getElementById('mfDesc');
 const mfDotsEl  = document.getElementById('mfDots');
-const discWrap  = document.getElementById('discWrap');
 
 let mfIdx = 0;
 let mfTimer = null;
 
+/* Build list items */
 mfData.forEach((s, i) => {
   const btn = document.createElement('button');
   btn.className = 'mf-step';
@@ -1228,6 +1246,37 @@ function renderMF(i){
 
   mfNumEl.textContent = i + 1;
 
+  /* Handle Central Visual Animation */
+  mfVisualEl.innerHTML = ''; // Clear current
+
+  if (i < 5) {
+    // Steps 1-5: Show whole membrane disc
+    mfVisualEl.innerHTML = `
+      <div class="disc-wrap">
+        <div class="disc-half left"></div>
+        <div class="disc-half right"></div>
+        <div class="hub">0.45 µm</div>
+      </div>
+    `;
+  } else if (i === 5) {
+    // Step 6: Split membrane disc
+    mfVisualEl.innerHTML = `
+      <div class="disc-wrap split">
+        <div class="disc-half left"></div>
+        <div class="disc-half right"></div>
+      </div>
+    `;
+  } else {
+    // Steps 7-10: Large animated icons
+    const data = mfData[i];
+    mfVisualEl.innerHTML = `
+      <div class="${data.anim}" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">
+        <svg class="ic" style="width:100%;height:100%;stroke-width:1.2"><use href="#${data.icon}"/></svg>
+      </div>
+    `;
+  }
+
+  /* Text transition */
   mfTitleEl.style.opacity = 0;
   mfDescEl.style.opacity  = 0;
   mfTitleEl.style.transform = 'translateY(8px)';
@@ -1241,11 +1290,9 @@ function renderMF(i){
     mfTitleEl.style.transform = 'none';
     mfDescEl.style.transform  = 'none';
   }, 120);
-
-  discWrap.classList.toggle('split', i >= 5);
 }
 
-/* ---- Play / Pause (fixed) ---- */
+/* ---- Play / Pause ---- */
 const playBtn = document.getElementById('mfPlay');
 
 function stopPlay(){
@@ -1260,7 +1307,7 @@ function startPlay(){
   mfTimer = setInterval(() => {
     if (mfIdx >= mfData.length - 1){ stopPlay(); return; }
     renderMF(mfIdx + 1);
-  }, 2000);
+  }, 2200);
 }
 
 playBtn.addEventListener('click', (e) => {
