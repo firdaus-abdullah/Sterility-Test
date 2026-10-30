@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sterility Testing — SOP QCSC.048.20 | Training Deck</title>
+<style>
+/* ============================================================
+   DUOPHARMA TRAINING DECK — STERILITY TESTING SOP QCSC.048.20
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#e30613;
+  --red-dark:#a8040e;
+  --ink:#1f2328;
+  --gray:#6b7280;
+  --line:#e5e7eb;
+  --soft:#f7f7f8;
+  --ftm:#c2410c;
+  --tsb:#0369a1;
+}
+html,body{
+  height:100%;background:#0d0d0f;overflow:hidden;
+  font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;
+  color:var(--ink);-webkit-font-smoothing:antialiased;
+}
+
+/* ---------- viewport progress ---------- */
+.progress{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.08);z-index:50}
+.progress > div{height:100%;width:0;background:linear-gradient(90deg,#e30613,#ff5a63);transition:width .35s ease}
+
+/* ---------- stage ---------- */
+.stage{
+  position:absolute;width:1280px;height:720px;left:50%;top:50%;
+  transform-origin:center center;background:#fff;overflow:hidden;
+  box-shadow:0 30px 90px rgba(0,0,0,.65);border-radius:2px;
+}
+
+/* ---------- slides ---------- */
+.slide{
+  position:absolute;inset:0;padding:44px 60px 64px;background:#fff;
+  display:none;opacity:0;transform:translateX(24px);
+  transition:opacity .38s ease,transform .38s ease;
+}
+.slide.active{display:block;opacity:1;transform:none}
+
+/* ---------- header ---------- */
+.s-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.s-title{font-size:29px;font-weight:800;letter-spacing:-.4px;line-height:1.1}
+.s-title .num{color:var(--red);margin-right:10px;font-variant-numeric:tabular-nums}
+.s-sub{font-size:13.5px;color:var(--gray);margin-top:6px;max-width:760px;line-height:1.45}
+.s-logo{height:38px;width:auto;flex:none}
+.redline{height:3px;background:var(--red);margin-top:14px;border-radius:2px}
+
+/* ---------- cover ---------- */
+.cover{
+  padding:0;background:#fff;
+}
+.hex-bg{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg width='56' height='100' viewBox='0 0 56 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23e30613' stroke-opacity='0.10' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:90px 160px;
+  -webkit-mask-image:linear-gradient(105deg,transparent 28%,#000 75%);
+  mask-image:linear-gradient(105deg,transparent 28%,#000 75%);
+}
+.cover-logo{position:absolute;top:44px;right:60px;height:64px;width:auto;z-index:3}
+.cover-content{position:absolute;left:60px;top:150px;max-width:720px;z-index:3}
+.kicker{
+  display:inline-block;font-size:12px;font-weight:800;letter-spacing:2.4px;
+  color:var(--red);border-left:4px solid var(--red);padding-left:12px;margin-bottom:22px;
+}
+.cover h1{font-size:76px;line-height:.98;font-weight:900;letter-spacing:-2.5px;color:#141518}
+.cover h1 em{font-style:normal;color:var(--red)}
+.cover .sop-badge{
+  display:inline-flex;align-items:center;gap:10px;margin-top:22px;
+  background:#141518;color:#fff;font-size:15px;font-weight:700;
+  padding:9px 18px;border-radius:4px;letter-spacing:.4px;
+}
+.cover .sop-badge span{color:#ff6b73;font-weight:800}
+.cover p.lead{margin-top:22px;font-size:16.5px;color:#4b5058;max-width:560px;line-height:1.55}
+.presenter{
+  position:absolute;left:60px;bottom:104px;font-size:14px;color:#4b5058;z-index:3;
+}
+.presenter strong{color:#141518}
+.bottom-bar{
+  position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--red);
+  display:flex;align-items:center;justify-content:space-between;padding:0 60px;
+  color:#fff;z-index:4;
+}
+.bottom-bar .tag{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:19px;letter-spacing:.4px}
+.bottom-bar .brand{font-size:13px;font-weight:800;letter-spacing:3.5px}
+.hint{
+  position:absolute;right:60px;bottom:104px;font-size:12px;color:#9aa0a6;
+  display:flex;align-items:center;gap:8px;z-index:3;
+}
+.hint kbd{
+  background:#f1f2f4;border:1px solid #dcdfe4;border-bottom-width:2px;border-radius:4px;
+  padding:2px 7px;font-family:inherit;font-size:11px;color:#4b5058;
+}
+
+/* ---------- agenda ---------- */
+.agenda-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px;margin-top:26px}
+.agenda-item{
+  display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:8px;
+  background:var(--soft);border-left:4px solid transparent;cursor:pointer;
+  transition:all .22s ease;
+}
+.agenda-item:hover{background:#fff;border-left-color:var(--red);box-shadow:0 8px 24px rgba(227,6,19,.10);transform:translateX(4px)}
+.agenda-item .n{
+  font-size:18px;font-weight:900;color:#c9ccd1;width:34px;flex:none;
+  transition:color .22s;
+}
+.agenda-item:hover .n{color:var(--red)}
+.agenda-item .t{font-size:15px;font-weight:700}
+.agenda-item .d{font-size:12px;color:var(--gray);margin-top:2px}
+
+/* ---------- generic cards ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.card.soft{background:var(--soft);border-color:transparent}
+.card h3{font-size:15px;font-weight:800;margin-bottom:6px}
+.card p{font-size:13.5px;color:#4b5058;line-height:1.5}
+
+/* ---------- purpose/scope ---------- */
+.purpose-layout{display:grid;grid-template-columns:0.92fr 1.08fr;gap:26px;margin-top:24px}
+.purpose-card{
+  background:linear-gradient(160deg,#141518,#2b2f36);color:#fff;border-radius:12px;
+  padding:24px 24px 22px;position:relative;overflow:hidden;
+}
+.purpose-card::after{
+  content:"";position:absolute;right:-46px;top:-46px;width:150px;height:150px;
+  border:22px solid rgba(227,6,19,.55);transform:rotate(45deg);border-radius:12px;
+}
+.purpose-card .lbl{font-size:11px;font-weight:800;letter-spacing:2px;color:#ff6b73;margin-bottom:12px}
+.purpose-card p{font-size:14.5px;line-height:1.6;color:#e6e7ea;position:relative;z-index:1}
+.purpose-note{
+  margin-top:14px;background:#fff5f5;border:1px solid #ffd3d6;border-radius:8px;
+  padding:12px 14px;font-size:12.5px;color:#9c0b14;line-height:1.5;
+}
+.purpose-note b{display:block;font-size:11px;letter-spacing:1.4px;margin-bottom:3px;color:#e30613}
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scope-item{
+  display:flex;gap:11px;align-items:flex-start;background:var(--soft);border-radius:8px;
+  padding:11px 13px;transition:.2s;border:1px solid transparent;
+}
+.scope-item:hover{background:#fff;border-color:#ffd3d6;box-shadow:0 6px 18px rgba(227,6,19,.08)}
+.scope-item .sn{
+  width:22px;height:22px;flex:none;border-radius:50%;background:var(--red);color:#fff;
+  font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.scope-item .st{font-size:12.6px;font-weight:600;line-height:1.35;color:#2c3138}
+.scope-item.span2{grid-column:span 2}
+
+/* ---------- roles ---------- */
+.roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.role-card{border:1px solid var(--line);border-radius:12px;padding:24px;position:relative;transition:.25s}
+.role-card:hover{box-shadow:0 14px 34px rgba(20,21,24,.09);transform:translateY(-3px)}
+.role-card .ribbon{position:absolute;top:0;left:24px;transform:translateY(-50%);background:var(--red);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:1.6px;padding:5px 12px;border-radius:3px}
+.role-card h3{font-size:17px;font-weight:800;margin:10px 0 12px}
+.role-card ul{list-style:none}
+.role-card li{display:flex;gap:10px;font-size:13.4px;color:#4b5058;line-height:1.5;margin-bottom:9px}
+.role-card li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);flex:none;margin-top:6px}
+.freq-strip{
+  margin-top:24px;display:flex;align-items:center;gap:18px;background:#141518;color:#fff;
+  border-radius:10px;padding:18px 24px;
+}
+.freq-strip .ico{width:42px;height:42px;border-radius:50%;background:rgba(227,6,19,.2);display:flex;align-items:center;justify-content:center;font-size:19px}
+.freq-strip .k{font-size:11px;letter-spacing:2px;color:#ff8a90;font-weight:800}
+.freq-strip .v{font-size:16px;font-weight:700;margin-top:2px}
+
+/* ---------- procedure overview ---------- */
+.chips{display:flex;gap:12px;margin-top:20px}
+.chip{
+  flex:1;background:var(--soft);border-radius:8px;padding:12px 14px;font-size:12.6px;
+  line-height:1.45;color:#4b5058;border-top:3px solid var(--red);
+}
+.chip b{display:block;color:#141518;font-size:13px;margin-bottom:3px}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:26px}
+.flow-item{
+  flex:1;background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 14px;
+  text-align:center;cursor:pointer;transition:.25s;position:relative;
+}
+.flow-item:hover{border-color:var(--red);box-shadow:0 12px 28px rgba(227,6,19,.13);transform:translateY(-4px)}
+.flow-item .fi{font-size:24px;margin-bottom:8px}
+.flow-item .ft{font-size:13px;font-weight:800;line-height:1.3}
+.flow-item .fd{font-size:11px;color:var(--gray);margin-top:4px}
+.flow-arrow{display:flex;align-items:center;color:#d5d8dd;font-size:18px;padding:0 6px;flex:none}
+
+/* ---------- tabs ---------- */
+.tabs{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+.tab{
+  font-family:inherit;font-size:12.6px;font-weight:700;color:#4b5058;background:var(--soft);
+  border:1px solid transparent;border-radius:20px;padding:9px 17px;cursor:pointer;transition:.2s;
+}
+.tab:hover{background:#ffecee;color:var(--red-dark)}
+.tab.active{background:var(--red);color:#fff;box-shadow:0 6px 18px rgba(227,6,19,.3)}
+.tab-panel{display:none;margin-top:20px;animation:fadeUp .35s ease}
+.tab-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.panel-card{border:1px solid var(--line);border-radius:12px;padding:26px 28px;display:flex;gap:26px;align-items:center}
+.panel-card .big{
+  width:118px;height:118px;flex:none;border-radius:50%;background:linear-gradient(145deg,#e30613,#ff5a63);
+  color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 14px 30px rgba(227,6,19,.32);
+}
+.panel-card .big b{font-size:36px;font-weight:900;line-height:1}
+.panel-card .big small{font-size:10.5px;letter-spacing:1.6px;margin-top:3px;opacity:.9}
+.panel-card h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.panel-card p{font-size:14px;color:#4b5058;line-height:1.6;max-width:640px}
+.micro-note{margin-top:18px;font-size:12.5px;color:var(--gray);display:flex;gap:9px;align-items:flex-start}
+.micro-note b{color:var(--red)}
+
+/* ---------- membrane stepper ---------- */
+.mf-layout{display:grid;grid-template-columns:1.05fr 0.95fr;gap:30px;margin-top:18px}
+.mf-steps{display:flex;flex-direction:column;gap:5px}
+.mf-step{
+  display:flex;align-items:center;gap:12px;background:transparent;border:0;text-align:left;
+  font-family:inherit;font-size:12.8px;font-weight:600;color:#7b8189;cursor:pointer;
+  padding:7px 12px;border-radius:7px;transition:.22s;border-left:3px solid transparent;
+}
+.mf-step:hover{background:var(--soft);color:#141518}
+.mf-step.active{background:#fff5f5;color:var(--red-dark);border-left-color:var(--red);font-weight:800;transform:translateX(4px)}
+.mf-step .sn{
+  width:21px;height:21px;border-radius:50%;background:#eceef1;color:#7b8189;font-size:10.5px;
+  font-weight:800;display:flex;align-items:center;justify-content:center;flex:none;transition:.22s;
+}
+.mf-step.active .sn{background:var(--red);color:#fff}
+.mf-step.done .sn{background:#141518;color:#fff}
+
+.mf-right{background:var(--soft);border-radius:14px;padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.disc-wrap{position:relative;width:96px;height:96px;margin-bottom:14px}
+.disc-half{
+  position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(140deg,#ffc9cd,#ff8a90);
+  transition:transform .55s cubic-bezier(.34,1.56,.64,1),background .4s;
+}
+.disc-half.left{clip-path:inset(0 50% 0 0)}
+.disc-half.right{clip-path:inset(0 0 0 50%)}
+.disc-wrap.split .disc-half.left{transform:translateX(-13px) rotate(-6deg);background:linear-gradient(140deg,#fed7aa,#f59e0b)}
+.disc-wrap.split .disc-half.right{transform:translateX(13px) rotate(6deg);background:linear-gradient(140deg,#bae6fd,#38bdf8)}
+.disc-wrap .hub{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;letter-spacing:1.2px;color:#9c0b14;
+  transition:opacity .3s;pointer-events:none;
+}
+.disc-wrap.split .hub{opacity:0}
+.mf-num{font-size:40px;font-weight:900;color:#141518;line-height:1}
+.mf-num small{font-size:14px;color:#b6bac0;font-weight:700}
+.mf-title{font-size:16px;font-weight:800;margin-top:8px;color:#141518}
+.mf-desc{font-size:13px;color:#4b5058;line-height:1.55;margin-top:8px;min-height:72px}
+.mf-dots{display:flex;gap:5px;margin-top:auto;padding-top:14px}
+.mf-dots i{width:8px;height:8px;border-radius:50%;background:#d8dbe0;transition:.25s}
+.mf-dots i.on{background:var(--red);transform:scale(1.25)}
+.mf-controls{display:flex;gap:10px;margin-top:14px}
+.mf-btn{
+  font-family:inherit;font-size:12px;font-weight:800;border-radius:20px;padding:8px 18px;
+  cursor:pointer;border:1px solid var(--line);background:#fff;color:#4b5058;transition:.2s;
+}
+.mf-btn:hover{border-color:var(--red);color:var(--red)}
+.mf-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.mf-btn.primary:hover{background:var(--red-dark);border-color:var(--red-dark);color:#fff}
+
+/* ---------- two column panels ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px}
+.panel{border:1px solid var(--line);border-radius:12px;padding:22px;transition:.25s;position:relative}
+.panel:hover{box-shadow:0 14px 34px rgba(20,21,24,.08)}
+.panel .ph{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.panel .ph .ic{
+  width:36px;height:36px;border-radius:9px;background:#fff0f1;color:var(--red);
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.panel .ph h3{font-size:15.5px;font-weight:800}
+.panel .ph small{display:block;font-size:11px;color:var(--gray);font-weight:600;margin-top:1px}
+.panel ul{list-style:none}
+.panel li{display:flex;gap:9px;font-size:12.8px;color:#4b5058;line-height:1.5;margin-bottom:8px}
+.panel li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--red);flex:none;margin-top:6px}
+.panel li b{color:#141518}
+
+/* ---------- timeline ---------- */
+.timeline{display:flex;align-items:flex-start;margin-top:26px;position:relative;padding-top:6px}
+.timeline::before{
+  content:"";position:absolute;left:7%;right:7%;top:20px;height:3px;
+  background:linear-gradient(90deg,#e30613,#f59e0b,#0369a1);border-radius:2px;opacity:.25;
+}
+.tl-item{flex:1;text-align:center;position:relative;z-index:1}
+.tl-dot{width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--red);margin:0 auto 10px}
+.tl-item:nth-child(2) .tl-dot{border-color:#f59e0b}
+.tl-item:nth-child(3) .tl-dot{border-color:#0369a1}
+.tl-day{font-size:14px;font-weight:900;color:#141518}
+.tl-text{font-size:11.8px;color:var(--gray);margin-top:3px;line-height:1.4;padding:0 8px}
+.outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.outcome{border-radius:12px;padding:18px;border:1px solid var(--line);transition:.25s;cursor:default}
+.outcome:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(20,21,24,.1)}
+.outcome .tag{font-size:10px;font-weight:900;letter-spacing:1.4px;padding:4px 9px;border-radius:4px;display:inline-block;margin-bottom:10px}
+.outcome.ok .tag{background:#dcfce7;color:#15803d}
+.outcome.warn .tag{background:#fef3c7;color:#b45309}
+.outcome.bad .tag{background:#fee2e2;color:#b91c1c}
+.outcome h4{font-size:13.6px;font-weight:800;margin-bottom:6px}
+.outcome p{font-size:12.3px;color:#4b5058;line-height:1.5}
+.outcome.ok{border-top:3px solid #16a34a}
+.outcome.warn{border-top:3px solid #f59e0b}
+.outcome.bad{border-top:3px solid #dc2626}
+
+/* ---------- appendix / references ---------- */
+.ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px}
+.ref-list{list-style:none;margin-top:10px}
+.ref-list li{
+  font-size:12.8px;color:#4b5058;line-height:1.5;padding:9px 0 9px 26px;position:relative;
+  border-bottom:1px dashed var(--line);
+}
+.ref-list li:last-child{border-bottom:0}
+.ref-list li::before{
+  content:"›";position:absolute;left:8px;top:7px;color:var(--red);font-weight:900;font-size:15px;
+}
+
+/* ---------- thank you ---------- */
+.thank{background:#141518;color:#fff;padding:0;display:flex;align-items:center;justify-content:center;text-align:center}
+.thank .hex-bg{opacity:.55}
+.thank-inner{position:relative;z-index:2}
+.thank-logo{height:80px;width:auto;margin-bottom:26px;filter:brightness(0) invert(1) opacity(.95)}
+.thank h2{font-size:64px;font-weight:900;letter-spacing:-2px;line-height:1}
+.thank h2 em{font-style:normal;color:var(--red)}
+.thank p{margin-top:16px;color:#a5abb3;font-size:15px;letter-spacing:.3px}
+.thank .prepared{margin-top:30px;font-size:12px;letter-spacing:2px;color:#6d737b;text-transform:uppercase}
+.thank .prepared b{display:block;color:#fff;font-size:14px;letter-spacing:.6px;margin-top:5px;text-transform:none}
+
+/* ---------- navigation ---------- */
+.nav{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:14px;z-index:60;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(10px);
+  padding:8px 14px;border-radius:40px;box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.nav button{
+  width:34px;height:34px;border-radius:50%;border:0;background:#f1f2f4;color:#4b5058;
+  cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;
+  transition:.2s;font-family:inherit;
+}
+.nav button:hover{background:var(--red);color:#fff}
+.nav .dots{display:flex;gap:6px;align-items:center}
+.nav .dots i{
+  width:8px;height:8px;border-radius:50%;background:#d5d8dd;cursor:pointer;transition:.25s;
+}
+.nav .dots i.on{background:var(--red);width:22px;border-radius:5px}
+.nav .counter{font-size:11.5px;font-weight:800;color:#7b8189;font-variant-numeric:tabular-nums;min-width:44px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="progress"><div id="progressBar"></div></div>
+
+<div class="stage" id="stage">
+
+  <!-- ================= 1. COVER ================= -->
+  <section class="slide cover active">
+    <div class="hex-bg"></div>
+    <img class="cover-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    <div class="cover-content">
+      <div class="kicker">QC MICROBIOLOGY · TRAINING MODULE</div>
+      <h1>STERILITY<br><em>TESTING</em></h1>
+      <div class="sop-badge">SOP <span>QCSC.048.20</span> · Revision 20</div>
+      <p class="lead">
+        Pharmacopoeial sterility testing of substances, preparations and articles
+        required to be sterile — performed in the laminar airflow cabinet under
+        controlled environmental and personnel monitoring.
+      </p>
+    </div>
+    <div class="presenter">Prepared by: <strong>Muhammad Firdaus Abdullah</strong></div>
+    <div class="hint">Navigate with <kbd>←</kbd> <kbd>→</kbd> or click the dots below</div>
+    <div class="bottom-bar">
+      <span class="tag">Smarter Solutions. Healthier Life.</span>
+      <span class="brand">DUOPHARMA</span>
+    </div>
+  </section>
+
+  <!-- ================= 2. AGENDA ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">01</span>Training Agenda</div>
+        <div class="s-sub">What we will cover in this session — click any item to jump straight to that section.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="agenda-grid">
+      <div class="agenda-item" data-goto="2"><div class="n">01</div><div><div class="t">Purpose &amp; Scope</div><div class="d">What the procedure applies to</div></div></div>
+      <div class="agenda-item" data-goto="3"><div class="n">02</div><div><div class="t">Responsibility &amp; Frequency</div><div class="d">Who does what, and when</div></div></div>
+      <div class="agenda-item" data-goto="4"><div class="n">03</div><div><div class="t">Procedure Overview</div><div class="d">General precautions &amp; workflow</div></div></div>
+      <div class="agenda-item" data-goto="5"><div class="n">04</div><div><div class="t">Test Sample Preparation</div><div class="d">Units required per product type</div></div></div>
+      <div class="agenda-item" data-goto="6"><div class="n">05</div><div><div class="t">Membrane Filtration</div><div class="d">Interactive 10-step walkthrough</div></div></div>
+      <div class="agenda-item" data-goto="7"><div class="n">06</div><div><div class="t">Direct Inoculation &amp; BI</div><div class="d">Packaging materials &amp; spore strips</div></div></div>
+      <div class="agenda-item" data-goto="8"><div class="n">07</div><div><div class="t">Observation &amp; Interpretation</div><div class="d">14-day / 18-day read-out</div></div></div>
+      <div class="agenda-item" data-goto="9"><div class="n">08</div><div><div class="t">Environmental &amp; Personnel Monitoring</div><div class="d">EM and fingerprint sampling</div></div></div>
+    </div>
+  </section>
+
+  <!-- ================= 3. PURPOSE & SCOPE ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">02</span>Purpose &amp; Scope</div>
+        <div class="s-sub">Clause 1.0 and 2.0 of SOP QCSC.048.20.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="purpose-layout">
+      <div>
+        <div class="purpose-card">
+          <div class="lbl">1.0 PURPOSE</div>
+          <p>This procedure applies to the sterility testing of substances, preparations, or articles required to be sterile according to the Pharmacopeia.</p>
+        </div>
+        <div class="purpose-note">
+          <b>KEY CONCEPT · USP &lt;71&gt;</b>
+          Sterility assurance cannot be measured by a sterility test — the test only demonstrates the absence of viable micro-organisms in the sample examined under the stated conditions.
+        </div>
+      </div>
+
+      <div>
+        <div class="card soft" style="margin-bottom:12px;padding:13px 18px">
+          <h3 style="margin:0">2.0 SCOPE — applies to</h3>
+        </div>
+        <div class="scope-grid">
+          <div class="scope-item"><div class="sn">1</div><div class="st">Finished product &amp; stability studies of sterile liquid parenteral preparation</div></div>
+          <div class="scope-item"><div class="sn">2</div><div class="st">Finished product &amp; stability studies of sterile powder filling preparation</div></div>
+          <div class="scope-item"><div class="sn">3</div><div class="st">Finished product &amp; stability studies of sterile ophthalmic and non-injectable preparation</div></div>
+          <div class="scope-item"><div class="sn">4</div><div class="st">Finished product &amp; stability studies of sterile prefilled syringes</div></div>
+          <div class="scope-item"><div class="sn">5</div><div class="st">Sterile grade raw materials</div></div>
+          <div class="scope-item"><div class="sn">6</div><div class="st">Formulated Drug Product Solution (FDS)</div></div>
+          <div class="scope-item span2"><div class="sn">7</div><div class="st">Sterile grade packaging materials</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. ROLES ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">03</span>Responsibility &amp; Frequency</div>
+        <div class="s-sub">Clause 3.0 and 4.0 — clear ownership is part of data integrity.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="ribbon">3.1</div>
+        <h3>Senior Technician, QC and above</h3>
+        <ul>
+          <li>Responsible to ensure that the sterility test is performed according to the SOP.</li>
+          <li>Responsible to review the sterility test reports.</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="ribbon">3.2</div>
+        <h3>Lab Assistant, QC and above</h3>
+        <ul>
+          <li>Responsible to perform the sterility test as according to the SOP.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="freq-strip">
+      <div class="ico">⏱</div>
+      <div>
+        <div class="k">4.0 FREQUENCY</div>
+        <div class="v">As and when required</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5. PROCEDURE OVERVIEW ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">04</span>Procedure Overview</div>
+        <div class="s-sub">General precautions (5.1–5.3) and the overall testing workflow.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="chips">
+      <div class="chip"><b>5.1 Laminar airflow</b>All sample preparation and testing is conducted in the laminar airflow cabinet.</div>
+      <div class="chip"><b>5.2 Media sterility</b>Each batch of media is confirmed sterile by incubating for at least 14 days under its respective conditions.</div>
+      <div class="chip"><b>5.3 Disinfection</b>Every item introduced into the cabinet is disinfected with pre-sterilized 70% IPA.</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-item" data-goto="5">
+        <div class="fi">🧪</div>
+        <div class="ft">Sample Preparation</div>
+        <div class="fd">Clause 5.4</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" data-goto="6">
+        <div class="fi">🔬</div>
+        <div class="ft">Choose Method</div>
+        <div class="fd">Clause 5.5 / 5.6</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" data-goto="7">
+        <div class="fi">🧫</div>
+        <div class="ft">Inoculate &amp; Incubate</div>
+        <div class="fd">FTM / TSB · 14 days</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" data-goto="8">
+        <div class="fi">👁</div>
+        <div class="ft">Observe Daily</div>
+        <div class="fd">Clause 5.8</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" data-goto="8">
+        <div class="fi">✅</div>
+        <div class="ft">Interpret &amp; Record</div>
+        <div class="fd">F.QC.305 / F.QC.306</div>
+      </div>
+    </div>
+
+    <div class="micro-note">
+      <b>Remember:</b>
+      <span>Membrane filtration is used for aqueous solutions, soluble solids, oils and oily solutions. Direct inoculation is reserved for sterile-grade packaging materials.</span>
+    </div>
+  </section>
+
+  <!-- ================= 6. SAMPLE PREP ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">05</span>Test Sample Preparation</div>
+        <div class="s-sub">Clause 5.4 — unless otherwise specified in the individual test method in the product protocol of analysis (POA).</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="0">Liquid Parenteral &amp; Non-injectable</button>
+      <button class="tab" data-tab="1">Powder Filling</button>
+      <button class="tab" data-tab="2">Ophthalmic</button>
+      <button class="tab" data-tab="3">Prefilled Syringes</button>
+      <button class="tab" data-tab="4">Sterile Raw Materials</button>
+    </div>
+
+    <div class="tab-panel active" data-panel="0">
+      <div class="panel-card">
+        <div class="big"><b>30</b><small>UNITS MIN.</small></div>
+        <div>
+          <h3>Sterile liquid parenteral &amp; non-injectable preparation</h3>
+          <p>Aseptically pool the <b>entire content of at least 30 units</b> of test sample in a <b>pre-sterilized container</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="1">
+      <div class="panel-card">
+        <div class="big"><b>30</b><small>UNITS · 1,000 mL</small></div>
+        <div>
+          <h3>Sterile powder filling preparation</h3>
+          <p>Aseptically pool the <b>entire content of at least 30 units</b> of test sample in <b>1,000 mL of validated sterile rinse solution</b> as stated in the individual rinse solution.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="2">
+      <div class="panel-card">
+        <div class="big"><b>10</b><small>UNITS MIN.</small></div>
+        <div>
+          <h3>Sterile ophthalmic preparation</h3>
+          <p>Aseptically pool the <b>entire content of at least 10 units</b> of test sample in a <b>pre-sterilized container</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="3">
+      <div class="panel-card">
+        <div class="big"><b>60</b><small>UNITS MIN.</small></div>
+        <div>
+          <h3>Sterile prefilled syringes</h3>
+          <p>Aseptically pool the <b>entire content of at least 60 units</b> in a pre-sterilized container by <b>directly expelling the content through the sterile needle</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="4">
+      <div class="panel-card">
+        <div class="big"><b>100</b><small>mg / mL</small></div>
+        <div>
+          <h3>Sterile grade raw materials</h3>
+          <p>Aseptically dilute the test sample in an appropriate volume of <b>validated sterile rinse solution</b> to make up a final concentration of <b>100 mg/mL</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="micro-note">
+      <b>Tip:</b>
+      <span>Always verify the individual POA before pooling — the sample size and rinse solution may be product-specific.</span>
+    </div>
+  </section>
+
+  <!-- ================= 7. MEMBRANE FILTRATION (INTERACTIVE) ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">06</span>Membrane Filtration — Step by Step</div>
+        <div class="s-sub">Clause 5.5 — click any step, or press <b>Play</b> to run the whole sequence automatically.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="mf-layout">
+      <div class="mf-steps" id="mfSteps"></div>
+
+      <div class="mf-right">
+        <div class="disc-wrap" id="discWrap">
+          <div class="disc-half left"></div>
+          <div class="disc-half right"></div>
+          <div class="hub">0.45 µm</div>
+        </div>
+        <div class="mf-num"><span id="mfNum">1</span><small> / 10</small></div>
+        <div class="mf-title" id="mfTitle"></div>
+        <div class="mf-desc" id="mfDesc"></div>
+        <div class="mf-dots" id="mfDots"></div>
+        <div class="mf-controls">
+          <button class="mf-btn" id="mfPrev">‹ Prev</button>
+          <button class="mf-btn primary" id="mfNext">Next ›</button>
+          <button class="mf-btn" id="mfPlay">▶ Play</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 8. DIRECT INOCULATION & BI ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">07</span>Direct Inoculation &amp; Biological Indicator</div>
+        <div class="s-sub">Clauses 5.6 and 5.7 — specific to sterile-grade packaging materials.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="ph">
+          <div class="ic">🧴</div>
+          <div><h3>5.6 Direct Inoculation</h3><small>Sterile-grade packaging material</small></div>
+        </div>
+        <ul>
+          <li>Aseptically transfer <b>10 units</b> of test sample directly into <b>400 mL sterile FTM</b> and another <b>10 units</b> into <b>400 mL sterile TSB</b>.</li>
+          <li>Make sure all test sample is <b>completely immersed</b>.</li>
+          <li>Negative control: use the same batch of <b>uninoculated sterile test medium</b>.</li>
+          <li>Incubate FTM at <b>30–35 °C for 14 days</b> — aerobic &amp; anaerobic bacteria.</li>
+          <li>Incubate TSB at <b>20–25 °C for 14 days</b> — aerobic bacteria &amp; fungi.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <div class="ic">☢</div>
+          <div><h3>5.7 Gamma-Irradiated Biological Indicator</h3><small>Spore strips at outer primary packaging</small></div>
+        </div>
+        <ul>
+          <li>Aseptically withdraw the sterilized spore strips using <b>pre-sterilized forceps</b>.</li>
+          <li>Direct inoculate the spore strips into <b>sterile TSB</b>.</li>
+          <li>Positive control: inoculate <b>non-sterilized spore strips</b> of a similar lot into sterile TSB.</li>
+          <li>Negative control: same batch of uninoculated sterile test medium.</li>
+          <li>Incubate at <b>30–35 °C for 7 days</b>.</li>
+          <li>Record all observations in <b>F.QC.062</b> — Biological Indicator Testing (Raw Data).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="micro-note">
+      <b>Interpretation:</b>
+      <span>No growth on sterilized strips → sterilization was sufficient. No growth in the positive control → test invalid. Absence of growth in the negative control → media sterile prior to testing.</span>
+    </div>
+  </section>
+
+  <!-- ================= 9. OBSERVATION & INTERPRETATION ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">08</span>Observation &amp; Interpretation</div>
+        <div class="s-sub">Clause 5.8 — daily examination throughout the incubation period.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Day 0</div>
+        <div class="tl-text">Inoculation into FTM &amp; TSB, plus negative control</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Day 0 → 14</div>
+        <div class="tl-text">Examine daily for cloudiness, turbidity or clumps — record in F.QC.305</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-day">Day 18</div>
+        <div class="tl-text">For naturally thick / cloudy products: transfer ≥1 mL to fresh media at Day 14 and incubate 4 more days — record in F.QC.306</div>
+      </div>
+    </div>
+
+    <div class="outcomes">
+      <div class="outcome ok">
+        <span class="tag">COMPLIES</span>
+        <h4>No evidence of microbial growth</h4>
+        <p>The product to be examined complies with the test for sterility.</p>
+      </div>
+      <div class="outcome warn">
+        <span class="tag">INVALID</span>
+        <h4>Growth in the negative control</h4>
+        <p>The test may be considered invalid — investigate the media and aseptic technique.</p>
+      </div>
+      <div class="outcome bad">
+        <span class="tag">NON-COMPLIANT</span>
+        <h4>Growth in the sample</h4>
+        <p>The product does not comply. Abort further incubation and investigate per SOP GQC.GLP.001 (OOS / OOT / atypical results).</p>
+      </div>
+    </div>
+
+    <div class="micro-note">
+      <b>Data integrity:</b>
+      <span>A second analyst or reviewer examines / cross-checks all inoculated media at the end of incubation — or before incubation is aborted — prior to disposal or decontamination.</span>
+    </div>
+  </section>
+
+  <!-- ================= 10. EM & PM ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">09</span>Environmental &amp; Personnel Monitoring</div>
+        <div class="s-sub">Clauses 5.9 and 5.10 — conducted during and at the end of sterility testing.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="ph">
+          <div class="ic">🌬</div>
+          <div><h3>5.9 Environmental Monitoring</h3><small>Dynamic — during the sterility test</small></div>
+        </div>
+        <ul>
+          <li>Passive air sampling using <b>TSA</b> and <b>SDAC</b> plates.</li>
+          <li>Plates placed in the laminar airflow cabinet and associated background — <b>K1 Sterility Test Room</b>, <b>K3 1L14</b> and <b>K3 1L15</b> (MP1, MP2, MP5–MP8) per SOP QCSC.006.</li>
+          <li>Aseptically remove the lid and place face-down; record exact start time.</li>
+          <li><b>Maximum exposure per plate: 4 hours</b> — then replace the lid and record end time.</li>
+          <li>Incubate TSA at <b>30–35 °C / 5 days</b>; SDAC at <b>20–25 °C / 5 days</b>, both inverted.</li>
+          <li>Count aerobic bacteria and fungi; record in <b>Novatek EM Software</b>.</li>
+          <li>Limits per SOP QCSC.006; deviations per SOP GQC.GLP.001.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <div class="ic">🖐</div>
+          <div><h3>5.10 Personnel Monitoring</h3><small>Fingerprint sampling — end of testing</small></div>
+        </div>
+        <ul>
+          <li>Performed at the <b>end of the sterility testing</b> by the fingerprint sampling method.</li>
+          <li>Inside the laminar airflow cabinet, aseptically remove the lid and place it face-down.</li>
+          <li>Press all <b>10 fingertips</b> of both gloved hands simultaneously onto separate TSA plates with uniform, light pressure for <b>3–5 seconds</b>; repeat with SDAC.</li>
+          <li>Close the plates and disinfect gloves with pre-sterilized <b>70% IPA</b>.</li>
+          <li>Mark plates with analyst name, date and time of sample.</li>
+          <li>Incubate TSA at <b>30–35 °C / 5 days</b>; SDAC at <b>20–25 °C / 5 days</b>, both inverted.</li>
+          <li>Count and record in the <b>Novatek EM Software</b>; deviations per SOP GQC.GLP.001.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 11. APPENDIX / REFERENCES ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title"><span class="num">10</span>Appendices &amp; References</div>
+        <div class="s-sub">Clauses 6.0 – 8.0 of SOP QCSC.048.20.</div>
+      </div>
+      <img class="s-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline"></div>
+
+    <div class="ref-grid">
+      <div class="panel">
+        <div class="ph">
+          <div class="ic">📎</div>
+          <div><h3>7.0 Appendix</h3><small>Rinse solutions</small></div>
+        </div>
+        <ul class="ref-list">
+          <li><b>Appendix 1</b> — Preparation of 0.1% w/v Peptone: dissolve 1 g peptic digest of animal tissue in deionized/purified water to 1,000 mL; adjust pH 7.1 ± 0.2; dispense; sterilize at 121 °C for 15 minutes; record in F.QC.162.</li>
+          <li><b>Appendix 2</b> — Preparation of 0.1% w/v Peptone with 1% Tween 80: dissolve 1 g peptic digest of animal tissue to 1,000 mL and add 10 g Polysorbate 80; adjust pH 7.1 ± 0.2; dispense; sterilize at 121 °C for 15 minutes; record in F.QC.161.</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <div class="ic">📚</div>
+          <div><h3>8.0 References</h3><small>Governing documents</small></div>
+        </div>
+        <ul class="ref-list">
+          <li>USP &lt;71&gt; Sterility Test</li>
+          <li>PIC/S Recommendation on Sterility Testing</li>
+          <li>SOP GQC.GLP.001 — Investigating Out of Specification (OOS), Out of Trend (OOT), and Atypical, Aberrant, Anomalous Test Results</li>
+          <li>SOP QCSC.006 — Cleaning and EM in Micro Labs (K1 &amp; K3)</li>
+        </ul>
+        <div class="micro-note" style="margin-top:14px">
+          <b>Forms:</b>
+          <span>F.QC.305 · F.QC.306 · F.QC.062 · F.QC.161 · F.QC.162</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 12. THANK YOU ================= -->
+  <section class="slide thank">
+    <div class="hex-bg"></div>
+    <div class="thank-inner">
+      <img class="thank-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+      <h2>THANK <em>YOU</em></h2>
+      <p>Questions, clarifications and deviation discussions are welcome.</p>
+      <div class="prepared">Prepared by<b>Muhammad Firdaus Abdullah</b></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= NAVIGATION ================= -->
+<nav class="nav">
+  <button id="prevBtn" aria-label="Previous slide">‹</button>
+  <div class="dots" id="dots"></div>
+  <div class="counter" id="counter">1 / 12</div>
+  <button id="nextBtn" aria-label="Next slide">›</button>
+</nav>
+
+<script>
+/* ============================================================
+   STAGE SCALING
+   ============================================================ */
+const stage = document.getElementById('stage');
+function resizeStage(){
+  const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+  stage.style.transform = `translate(-50%,-50%) scale(${s})`;
+}
+window.addEventListener('resize', resizeStage);
+resizeStage();
+
+/* ============================================================
+   SLIDE ENGINE
+   ============================================================ */
+const slides = Array.from(document.querySelectorAll('.slide'));
+const total = slides.length;
+let current = 0;
+
+const dotsWrap = document.getElementById('dots');
+slides.forEach((_, i) => {
+  const d = document.createElement('i');
+  if (i === 0) d.classList.add('on');
+  d.addEventListener('click', () => goTo(i));
+  dotsWrap.appendChild(d);
+});
+const dotEls = Array.from(dotsWrap.children);
+const counter = document.getElementById('counter');
+const progressBar = document.getElementById('progressBar');
+
+function goTo(n){
+  if (n < 0) n = 0;
+  if (n > total - 1) n = total - 1;
+  slides[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+
+  dotEls.forEach((d, i) => d.classList.toggle('on', i === current));
+  counter.textContent = `${current + 1} / ${total}`;
+  progressBar.style.width = ((current + 1) / total * 100) + '%';
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft'  || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(total - 1);
+});
+
+/* deep-link cards */
+document.querySelectorAll('[data-goto]').forEach(el => {
+  el.style.cursor = 'pointer';
+  el.addEventListener('click', () => goTo(parseInt(el.dataset.goto, 10)));
+});
+
+/* ============================================================
+   TABS (sample preparation)
+   ============================================================ */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const group = tab.parentElement;
+    group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const wrap = group.parentElement;
+    wrap.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.toggle('active', p.dataset.panel === tab.dataset.tab);
+    });
+  });
+});
+
+/* ============================================================
+   INTERACTIVE MEMBRANE FILTRATION STEPPER
+   ============================================================ */
+const mfData = [
+  { t: "Pre-sterilized membrane", d: "Use a pre-sterilized membrane with 0.45 µm nominal pore size and a diameter of about 50 mm." },
+  { t: "Pre-wet the membrane", d: "Pre-wet the membrane with validated sterile rinse solution as stated in the individual POA before inoculating the test sample." },
+  { t: "Filter the sample", d: "Aseptically inoculate and filter 15 mL (unless a specific volume is stated in the individual POA) of the previously prepared test sample onto the pre-wet membrane." },
+  { t: "Rinse 5 × 100 mL", d: "Rinse the inoculated membrane with the test sample for a total of 100 mL, 5 times, using validated sterile rinse solution." },
+  { t: "Oily / viscous samples", d: "For oils and oily solutions with high viscosity, use a validated rinsing solution containing a suitable emulsifying agent." },
+  { t: "Cut the membrane", d: "Aseptically cut the sample membrane into two equal halves using sterile scissors (unless a specific procedure is stated in the individual POA)." },
+  { t: "Transfer to media", d: "Transfer one half into 15 mL sterile Fluid Thioglycollate Medium (FTM) and the other half into 15 mL sterile Tryptic Soy Broth (TSB)." },
+  { t: "Negative control", d: "Instead of the test sample, aseptically filter 100 mL of the same batch of validated sterile rinse solution. Cut the membrane and transfer halves into FTM and TSB." },
+  { t: "Incubate FTM", d: "Incubate the inoculated FTM at 30–35 °C for 14 days together with its negative control — detection of aerobic and anaerobic bacteria." },
+  { t: "Incubate TSB", d: "Incubate the inoculated TSB at 20–25 °C for 14 days together with its negative control — detection of aerobic bacteria and fungi." }
+];
+
+const mfStepsEl  = document.getElementById('mfSteps');
+const mfNumEl    = document.getElementById('mfNum');
+const mfTitleEl  = document.getElementById('mfTitle');
+const mfDescEl   = document.getElementById('mfDesc');
+const mfDotsEl   = document.getElementById('mfDots');
+const discWrap   = document.getElementById('discWrap');
+
+let mfIdx = 0;
+let mfTimer = null;
+
+/* build step buttons + dots */
+mfData.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'mf-step';
+  btn.innerHTML = `<span class="sn">${i + 1}</span><span>${s.t}</span>`;
+  btn.addEventListener('click', () => { stopPlay(); renderMF(i); });
+  mfStepsEl.appendChild(btn);
+
+  const dot = document.createElement('i');
+  mfDotsEl.appendChild(dot);
+});
+
+const mfStepBtns = Array.from(mfStepsEl.children);
+const mfDotEls   = Array.from(mfDotsEl.children);
+
+function renderMF(i){
+  mfIdx = i;
+  mfStepBtns.forEach((b, k) => {
+    b.classList.toggle('active', k === i);
+    b.classList.toggle('done', k < i);
+  });
+  mfDotEls.forEach((d, k) => d.classList.toggle('on', k <= i));
+
+  mfNumEl.textContent = i + 1;
+  mfTitleEl.style.opacity = 0;
+  mfDescEl.style.opacity  = 0;
+  mfTitleEl.style.transform = 'translateY(8px)';
+  mfDescEl.style.transform  = 'translateY(8px)';
+
+  setTimeout(() => {
+    mfTitleEl.textContent = mfData[i].t;
+    mfDescEl.textContent  = mfData[i].d;
+    mfTitleEl.style.transition = 'opacity .25s, transform .25s';
+    mfDescEl.style.transition  = 'opacity .25s, transform .25s';
+    mfTitleEl.style.opacity = 1;
+    mfDescEl.style.opacity  = 1;
+    mfTitleEl.style.transform = 'none';
+    mfDescEl.style.transform  = 'none';
+  }, 110);
+
+  /* membrane splits from step 6 onwards */
+  discWrap.classList.toggle('split', i >= 5);
+}
+
+document.getElementById('mfNext').addEventListener('click', () => {
+  stopPlay();
+  renderMF((mfIdx + 1) % mfData.length);
+});
+document.getElementById('mfPrev').addEventListener('click', () => {
+  stopPlay();
+  renderMF((mfIdx - 1 + mfData.length) % mfData.length);
+});
+
+const playBtn = document.getElementById('mfPlay');
+function stopPlay(){
+  if (mfTimer) { clearInterval(mfTimer); mfTimer = null; }
+  playBtn.textContent = '▶ Play';
+}
+playBtn.addEventListener('click', () => {
+  if (mfTimer) { stopPlay(); return; }
+  playBtn.textContent = '❚❚ Pause';
+  mfTimer = setInterval(() => {
+    if (mfIdx >= mfData.length - 1) { stopPlay(); return; }
+    renderMF(mfIdx + 1);
+  }, 2200);
+});
+
+renderMF(0);
+goTo(0);
+</script>
+</body>
+</html>
