@@ -69,6 +69,12 @@ html,body{
   70%{transform:scale(1.25);opacity:0}
   100%{transform:scale(1.25);opacity:0}
 }
+@keyframes scanLine {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
 
 .slide.active .anim{animation:riseIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0s)}
 .slide.active .anim-pop{animation:popIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0s)}
@@ -145,6 +151,31 @@ svg.ic{
 .cf3{width:110px;height:110px;right:210px;top:540px;animation-delay:-5s}
 .cf4{width:78px;height:78px;right:420px;top:230px;animation-delay:-2s}
 .cf5{width:88px;height:88px;right:70px;top:480px;animation-delay:-4s}
+
+/* ---------- Attendance & Assessment QR Slides ---------- */
+.qr-layout {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin-top: 40px; text-align: center;
+}
+.qr-box {
+  position: relative; width: 260px; height: 260px; padding: 16px;
+  background: #fff; border-radius: 16px; border: 1px solid var(--line);
+  box-shadow: 0 16px 40px rgba(0,0,0,.08); overflow: hidden;
+}
+.qr-box img { width: 100%; height: 100%; display: block; border-radius: 8px; }
+/* QR Scanning Animation */
+.qr-box::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 4px;
+  background: rgba(227,6,19,.8); box-shadow: 0 0 10px rgba(227,6,19,.8);
+  animation: scanLine 3s infinite linear;
+}
+.qr-link {
+  margin-top: 24px; font-size: 18px; font-weight: 700; color: #000;
+  background: var(--soft); padding: 12px 24px; border-radius: 30px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.qr-link a { color: var(--red); text-decoration: none; }
+.qr-link a:hover { text-decoration: underline; }
 
 /* ---------- agenda ---------- */
 .agenda-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 24px;margin-top:22px}
@@ -541,6 +572,10 @@ svg.ic{
     <symbol id="i-x" viewBox="0 0 24 24">
       <path d="M6 6l12 12M18 6 6 18"/>
     </symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      <path d="M14 14h3v3h-3zM21 14v3M14 21h3M21 21v-3"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -580,7 +615,29 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 2. AGENDA ================= -->
+  <!-- ================= 2. TRAINING ATTENDANCE QR ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title anim" style="--d:.02s">Training Attendance</div>
+        <div class="s-sub anim" style="--d:.08s">Please scan the QR code below to record your attendance for this training session.</div>
+      </div>
+      <img class="s-logo anim-fade" style="--d:.1s" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline anim-fade" style="--d:.14s"></div>
+
+    <div class="qr-layout anim-pop" style="--d:.2s">
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://forms.gle/fmHBGwNNaMfsWpxD7" alt="QR Code for Training Attendance">
+      </div>
+      <div class="qr-link">
+        <svg class="ic" style="color:var(--red)"><use href="#i-doc"/></svg>
+        <span>Link: <a href="https://forms.gle/fmHBGwNNaMfsWpxD7" target="_blank">https://forms.gle/fmHBGwNNaMfsWpxD7</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. AGENDA ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -592,18 +649,18 @@ svg.ic{
     <div class="redline anim-fade" style="--d:.14s"></div>
 
     <div class="agenda-grid">
-      <div class="agenda-item anim" style="--d:.18s" data-goto="2"><div class="n">01</div><div><div class="t">Purpose &amp; Scope</div><div class="d">What the procedure applies to</div></div></div>
-      <div class="agenda-item anim" style="--d:.22s" data-goto="3"><div class="n">02</div><div><div class="t">Responsibility &amp; Frequency</div><div class="d">Who does what, and when</div></div></div>
-      <div class="agenda-item anim" style="--d:.26s" data-goto="4"><div class="n">03</div><div><div class="t">Procedure Overview</div><div class="d">General precautions &amp; workflow</div></div></div>
-      <div class="agenda-item anim" style="--d:.30s" data-goto="5"><div class="n">04</div><div><div class="t">Test Sample Preparation</div><div class="d">Units required per product type</div></div></div>
-      <div class="agenda-item anim" style="--d:.34s" data-goto="6"><div class="n">05</div><div><div class="t">Membrane Filtration</div><div class="d">Interactive 10-step walkthrough</div></div></div>
-      <div class="agenda-item anim" style="--d:.38s" data-goto="7"><div class="n">06</div><div><div class="t">Direct Inoculation &amp; BI</div><div class="d">Packaging materials &amp; spore strips</div></div></div>
-      <div class="agenda-item anim" style="--d:.42s" data-goto="8"><div class="n">07</div><div><div class="t">Observation &amp; Interpretation</div><div class="d">14-day / 18-day read-out</div></div></div>
-      <div class="agenda-item anim" style="--d:.46s" data-goto="9"><div class="n">08</div><div><div class="t">Environmental &amp; Personnel Monitoring</div><div class="d">EM and fingerprint sampling</div></div></div>
+      <div class="agenda-item anim" style="--d:.18s" data-goto="3"><div class="n">01</div><div><div class="t">Purpose &amp; Scope</div><div class="d">What the procedure applies to</div></div></div>
+      <div class="agenda-item anim" style="--d:.22s" data-goto="4"><div class="n">02</div><div><div class="t">Responsibility &amp; Frequency</div><div class="d">Who does what, and when</div></div></div>
+      <div class="agenda-item anim" style="--d:.26s" data-goto="5"><div class="n">03</div><div><div class="t">Procedure Overview</div><div class="d">General precautions &amp; workflow</div></div></div>
+      <div class="agenda-item anim" style="--d:.30s" data-goto="6"><div class="n">04</div><div><div class="t">Test Sample Preparation</div><div class="d">Units required per product type</div></div></div>
+      <div class="agenda-item anim" style="--d:.34s" data-goto="7"><div class="n">05</div><div><div class="t">Membrane Filtration</div><div class="d">Interactive 10-step walkthrough</div></div></div>
+      <div class="agenda-item anim" style="--d:.38s" data-goto="8"><div class="n">06</div><div><div class="t">Direct Inoculation &amp; BI</div><div class="d">Packaging materials &amp; spore strips</div></div></div>
+      <div class="agenda-item anim" style="--d:.42s" data-goto="9"><div class="n">07</div><div><div class="t">Observation &amp; Interpretation</div><div class="d">14-day / 18-day read-out</div></div></div>
+      <div class="agenda-item anim" style="--d:.46s" data-goto="10"><div class="n">08</div><div><div class="t">Environmental &amp; Personnel Monitoring</div><div class="d">EM and fingerprint sampling</div></div></div>
     </div>
   </section>
 
-  <!-- ================= 3. PURPOSE & SCOPE ================= -->
+  <!-- ================= 4. PURPOSE & SCOPE ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -646,7 +703,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 4. ROLES ================= -->
+  <!-- ================= 5. ROLES ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -684,7 +741,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 5. PROCEDURE OVERVIEW ================= -->
+  <!-- ================= 6. PROCEDURE OVERVIEW ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -702,31 +759,31 @@ svg.ic{
     </div>
 
     <div class="flow">
-      <div class="flow-item anim-pop" style="--d:.36s" data-goto="5">
+      <div class="flow-item anim-pop" style="--d:.36s" data-goto="6">
         <div class="fi"><svg class="ic"><use href="#i-flask"/></svg></div>
         <div class="ft">Sample Preparation</div>
         <div class="fd">Clause 5.4</div>
       </div>
       <div class="flow-arrow anim-fade" style="--d:.4s">→</div>
-      <div class="flow-item anim-pop" style="--d:.44s" data-goto="6">
+      <div class="flow-item anim-pop" style="--d:.44s" data-goto="7">
         <div class="fi"><svg class="ic"><use href="#i-membrane"/></svg></div>
         <div class="ft">Choose Method</div>
         <div class="fd">Clause 5.5 / 5.6</div>
       </div>
       <div class="flow-arrow anim-fade" style="--d:.48s">→</div>
-      <div class="flow-item anim-pop" style="--d:.52s" data-goto="7">
+      <div class="flow-item anim-pop" style="--d:.52s" data-goto="8">
         <div class="fi"><svg class="ic"><use href="#i-incubator"/></svg></div>
         <div class="ft">Inoculate &amp; Incubate</div>
         <div class="fd">FTM / TSB · 14 days</div>
       </div>
       <div class="flow-arrow anim-fade" style="--d:.56s">→</div>
-      <div class="flow-item anim-pop" style="--d:.60s" data-goto="8">
+      <div class="flow-item anim-pop" style="--d:.60s" data-goto="9">
         <div class="fi"><svg class="ic"><use href="#i-magnifier"/></svg></div>
         <div class="ft">Observe Daily</div>
         <div class="fd">Clause 5.8</div>
       </div>
       <div class="flow-arrow anim-fade" style="--d:.64s">→</div>
-      <div class="flow-item anim-pop" style="--d:.68s" data-goto="8">
+      <div class="flow-item anim-pop" style="--d:.68s" data-goto="9">
         <div class="fi"><svg class="ic"><use href="#i-check"/></svg></div>
         <div class="ft">Interpret &amp; Record</div>
         <div class="fd">F.QC.305 / F.QC.306</div>
@@ -739,7 +796,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 6. SAMPLE PREP ================= -->
+  <!-- ================= 7. SAMPLE PREP ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -814,7 +871,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 7. MEMBRANE FILTRATION (INTERACTIVE) ================= -->
+  <!-- ================= 8. MEMBRANE FILTRATION (INTERACTIVE) ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -829,7 +886,6 @@ svg.ic{
       <div class="mf-steps anim" style="--d:.18s" id="mfSteps"></div>
 
       <div class="mf-right anim" style="--d:.24s">
-        <!-- Dynamic Central Visual -->
         <div class="mf-visual" id="mfVisual"></div>
         
         <div class="mf-num"><span id="mfNum">1</span><small> / 10</small></div>
@@ -845,7 +901,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 8. DIRECT INOCULATION & BI ================= -->
+  <!-- ================= 9. DIRECT INOCULATION & BI ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -893,7 +949,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 9. OBSERVATION & INTERPRETATION ================= -->
+  <!-- ================= 10. OBSERVATION & INTERPRETATION ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -946,7 +1002,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 10. EM & PM ================= -->
+  <!-- ================= 11. EM & PM ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -992,7 +1048,7 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 11. APPENDIX / REFERENCES ================= -->
+  <!-- ================= 12. APPENDIX / REFERENCES ================= -->
   <section class="slide">
     <div class="s-head">
       <div>
@@ -1034,7 +1090,29 @@ svg.ic{
     </div>
   </section>
 
-  <!-- ================= 12. THANK YOU (FORMAL, PLAIN) ================= -->
+  <!-- ================= 13. TRAINING ASSESSMENT QR ================= -->
+  <section class="slide">
+    <div class="s-head">
+      <div>
+        <div class="s-title anim" style="--d:.02s">Training Assessment</div>
+        <div class="s-sub anim" style="--d:.08s">Please scan the QR code below to complete the assessment for this training session.</div>
+      </div>
+      <img class="s-logo anim-fade" style="--d:.1s" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXNcmxfNgNJtcBHBzyYf7S20E5bHQiHKVmjeYl6hXw1g&s=10" alt="Duopharma">
+    </div>
+    <div class="redline anim-fade" style="--d:.14s"></div>
+
+    <div class="qr-layout anim-pop" style="--d:.2s">
+      <div class="qr-box">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://forms.gle/9js3StV1TZzexLAQ7" alt="QR Code for Training Assessment">
+      </div>
+      <div class="qr-link">
+        <svg class="ic" style="color:var(--red)"><use href="#i-doc"/></svg>
+        <span>Link: <a href="https://forms.gle/9js3StV1TZzexLAQ7" target="_blank">https://forms.gle/9js3StV1TZzexLAQ7</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 14. THANK YOU (FORMAL, PLAIN) ================= -->
   <section class="slide thank">
     <div class="s-head">
       <div>
@@ -1069,7 +1147,7 @@ svg.ic{
 <nav class="nav">
   <button id="prevBtn" aria-label="Previous slide">‹</button>
   <div class="dots" id="dots"></div>
-  <div class="counter" id="counter">1 / 12</div>
+  <div class="counter" id="counter">1 / 14</div>
   <button id="nextBtn" aria-label="Next slide">›</button>
   <button id="fsBtn" title="Fullscreen (F)" aria-label="Fullscreen">⛶</button>
 </nav>
@@ -1116,7 +1194,8 @@ function goTo(n){
   counter.textContent = `${current + 1} / ${total}`;
   progressBar.style.width = ((current + 1) / total * 100) + '%';
 
-  if (current !== 6) stopPlay();
+  // Stop auto-play if leaving the membrane slide (now index 7)
+  if (current !== 7) stopPlay();
 }
 
 document.getElementById('prevBtn').addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
